@@ -103,7 +103,7 @@ int ListDrawNodes(Texture2D * texture){
 	while(current->next != NULL){
 		//printf("Node: %d\n", current->data);
 		
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size, WHITE);		
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, 10, WHITE);		
 		current = current->next;
 	}
 	return 0;	

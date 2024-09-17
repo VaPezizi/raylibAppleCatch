@@ -14,7 +14,7 @@ int main(){
 
 	
 
-	InitWindow( width, height, "Trollface PONG");	
+	InitWindow( width, height, "Apple catch");	
 	SetTargetFPS( 60 );
 
 	Basket mainBasket = {
@@ -53,10 +53,12 @@ int main(){
 		else if(IsKeyDown(KEY_RIGHT) && mainBasket.position.x < width){mainBasket.position.x = mainBasket.position.x + BASKETMAXSPEED;}
 
 
-
+		ListDrawNodes(&appleTexture);
 		DrawTextureEx(basketTexture, (Vector2) {mainBasket.position.x, mainBasket.position.y} , 0, (mainBasket.size * 0.002), WHITE);		
 		
-		ListDrawNodes(&appleTexture);
+		//printf("%d \n", ListDrawNodes(&appleTexture));
+
+		
 
 		EndDrawing();
 	}
