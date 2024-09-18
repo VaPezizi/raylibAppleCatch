@@ -30,7 +30,7 @@ int main(){
 	};
 	Apple testApple2 = {
 		40,
-		(Vector2) {200, 100},
+		(Vector2) {0, 100},
 		0
 	};
 
@@ -46,7 +46,7 @@ int main(){
 		BeginDrawing();
 		ClearBackground(LIGHTGRAY);
 		//Piirto koordinaatit X, Y
-		
+	
 		//Basket Movements
 		if(IsKeyDown(KEY_LEFT) && mainBasket.position.x > 0){mainBasket.position.x = mainBasket.position.x - BASKETMAXSPEED;}
 		else if(IsKeyDown(KEY_RIGHT) && mainBasket.position.x < width){mainBasket.position.x = mainBasket.position.x + BASKETMAXSPEED;}

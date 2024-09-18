@@ -81,7 +81,7 @@ int ListDestroyList(){
 	return 0;
 }
 
-int ListGetNode(Apple* apple, int index){
+int ListCpNode(Apple* apple, int index){
 	Node * current = First;
 	for(int i = 0; i < index; i++){
 		if(current->next != NULL){
@@ -101,13 +101,14 @@ int ListDrawNodes(Texture2D * texture){
 	Node * current = First;
 
 	if(current->next == NULL){
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.004, WHITE);	
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);
+		return 0;
 	}
 
 	while(current->next != NULL){
 		//printf("Node: %d\n", current->data);
 		puts("Testi");	
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.004, WHITE);		
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
 		current = current->next;
 	}
 	return 0;	
@@ -131,4 +132,13 @@ int ListPrintPositions(){
 	
 	printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
 	return 0;
+}
+int ListGetHead(Node* node){
+	if(Head==NULL){
+		return 1;
+	}
+	else{
+		node = Head;
+		return 0;
+	}
 }
