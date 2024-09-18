@@ -24,20 +24,19 @@ int main(){
 
 	};
 	Apple testApple = {
-		20.0,
-		(Vector2) {100, 100},
+		20,			//Size
+		(Vector2) {100, 100},	//Position
 		0
 	};
 	Apple testApple2 = {
-		20,
-		(Vector2) {1, 1},
+		40,
+		(Vector2) {200, 100},
 		0
 	};
 
 	
-	ListAddNode(testApple);		
-	ListGetNode(&testApple2, 0);
-	
+	ListAddNode(testApple);
+	ListAddNode(testApple2);
 
 	Texture2D basketTexture = LoadTexture("basket.png");
 	Texture2D appleTexture = LoadTexture("apple.png");
@@ -55,14 +54,20 @@ int main(){
 
 		ListDrawNodes(&appleTexture);
 		DrawTextureEx(basketTexture, (Vector2) {mainBasket.position.x, mainBasket.position.y} , 0, (mainBasket.size * 0.002), WHITE);		
-		
+		ListPrintPositions();		
+
 		//printf("%d \n", ListDrawNodes(&appleTexture));
 
 		
 
 		EndDrawing();
 	}
+	UnloadTexture(basketTexture);
 	
+	UnloadTexture(appleTexture);
+	
+	ListDestroyList();	
+	CloseWindow();
 	return 0;
 }
 

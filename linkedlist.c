@@ -99,43 +99,36 @@ int ListDrawNodes(Texture2D * texture){
 		return 1;
 	}
 	Node * current = First;
-	DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, 10, WHITE);		
+
+	if(current->next == NULL){
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.004, WHITE);	
+	}
+
 	while(current->next != NULL){
 		//printf("Node: %d\n", current->data);
-		
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, 10, WHITE);		
+		puts("Testi");	
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.004, WHITE);		
 		current = current->next;
 	}
 	return 0;	
 
 }
-
-
-
-
-	/*Node * Head = NULL;
-	addNode(1);	
-	addNode(2);	
-	addNode(3);
-	removeNode(0);
-	addNode(4);
-	addNode(5);
-	printList();
-	removeNode(1);
-	printf("\n");
-	printList();
-	destroyList();
-	printList();
-	removeNode(999);
-
-	puts("");
-	addNode(1);
-	addNode(2);
-	printList();
-
-	printNode(3);
-
-	destroyList();
-	destroyList();*/
-
-
+int ListPrintPositions(){
+	int index = 0;
+	if(Head==NULL){
+		return 1;
+	}
+	Node * current = First;
+	if(current->next==NULL){	
+		printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
+		index++;
+	}	
+	while(current->next != NULL){
+		printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
+		current = current->next;
+		index++;
+	}
+	
+	printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
+	return 0;
+}
