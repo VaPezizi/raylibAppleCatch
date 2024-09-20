@@ -5,8 +5,6 @@
 #include <math.h>
 #include "linkedlist.h"
 
-const int width = 800;
-const int height  = 600;
 const Vector2 BASKETSTART = {height/2, width/2};
 const int BASKETMAXSPEED = 300;
 

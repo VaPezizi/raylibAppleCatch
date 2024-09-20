@@ -43,6 +43,7 @@ int ListRemoveNode(int index){
 	if(index == 0){
 		First = current->next;
 		free(current);
+		puts("Succesfully destroyed Apple!");
 		return 0;
 	}
 
@@ -62,6 +63,7 @@ int ListRemoveNode(int index){
 		
 	//puts("Moro");
 	//if(current->next == NULL)return 1;
+	puts("Succesfully destroyed Apple!");
 	Node* temp = current->next;
 	current->next = temp->next;
 	free(temp);
@@ -127,27 +129,39 @@ int ListCpNode(Apple* apple, int index){
 }*/
 
 int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture){
-	
+
+	int index = 0;	
 	if(First == NULL){
 		return 1;
 	}
 	Node * current = First;
 
 	if(current->next == NULL){
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);
-		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE); //Drawing apple
+		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;	//Moving apple
+		if(current->data.position.y >= height)ListRemoveNode(index);	//Checking if apple is too low
 		return 0;
 	}
 
 	while(current->next != NULL){
 		//printf("Node: %d\n", current->data);
 		//puts("Testi");	
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);			
-		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
-		current = current->next;
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);	//Drawing		
+		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;	//Moving
+		
+		
+		if(current->data.position.y >= height){
+			ListRemoveNode(index);
+		}
+		index++;
+		
+		current = current->next;	
+
+
 	}
 	
 	current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+
 	DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
 	return 0;	
 }
