@@ -102,7 +102,7 @@ int ListCpNode(Apple* apple, int index){
 	apple = &current->data;
 	return 0;
 }
-int ListDrawNodes(Texture2D * texture){
+/*int ListDrawNodes(Texture2D * texture){
 	
 	if(First == NULL){
 		return 1;
@@ -124,7 +124,34 @@ int ListDrawNodes(Texture2D * texture){
 	DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
 	return 0;	
 
+}*/
+
+int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture){
+	
+	if(First == NULL){
+		return 1;
+	}
+	Node * current = First;
+
+	if(current->next == NULL){
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);
+		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+		return 0;
+	}
+
+	while(current->next != NULL){
+		//printf("Node: %d\n", current->data);
+		//puts("Testi");	
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);			
+		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+		current = current->next;
+	}
+	
+	current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+	DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
+	return 0;	
 }
+/*
 int ListMoveApples(float DeltaTime, float AppleSpeed){
 	if(First == NULL)return 1;
 	Node * current = First;
@@ -142,7 +169,7 @@ int ListMoveApples(float DeltaTime, float AppleSpeed){
 	return 0;
 
 }
-
+*/
 int ListPrintPositions(){
 	int index = 0;
 	if(First==NULL){

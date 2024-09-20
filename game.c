@@ -90,14 +90,15 @@ int main(){
 		else if(IsKeyDown(KEY_RIGHT) && mainBasket.position.x < width - 40){mainBasket.position.x = mainBasket.position.x + BASKETMAXSPEED * GetFrameTime();}
 
 
-		ListDrawNodes(&appleTexture);
+		ListUpdateApples(GetFrameTime(), appleSpeed, &appleTexture);
+		//ListDrawNodes(&appleTexture);
 		DrawTextureEx(basketTexture, (Vector2) {mainBasket.position.x, mainBasket.position.y} , 0, (mainBasket.size * 0.002), WHITE);		
 		//ListPrintPositions();		
 
 		//printf("%d \n", ListDrawNodes(&appleTexture));
 
 		appleSpeed = appleSpeed + 0.1;
-		ListMoveApples(GetFrameTime(), appleSpeed);		
+		//ListMoveApples(GetFrameTime(), appleSpeed);		
 
 		EndDrawing();
 	}
