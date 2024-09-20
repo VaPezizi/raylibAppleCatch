@@ -51,15 +51,21 @@ int ListRemoveNode(int index){
 			printf("Index out of range\n");
 			return 1;
 		}
-			
+		if(current->next == Head){
+			Head = current;
+		}
+		puts("Testi");		
 
 		current = current->next;
 	}
 	
+		
 	//puts("Moro");
-	Node* temp = current->next->next;
-	free(current->next);
-	current->next = temp;
+	//if(current->next == NULL)return 1;
+	Node* temp = current->next;
+	current->next = temp->next;
+	free(temp);
+
 	return 0;	
 
 }
@@ -67,7 +73,10 @@ int ListDestroyList(){
 	if(First == NULL){
 		return 0;
 	}
-
+	if(First->next == NULL){
+		free(First);
+		return 0;
+	}
 	Node* next = First->next;
 	Node* current = First;
 	while(current->next != NULL){
@@ -95,7 +104,7 @@ int ListCpNode(Apple* apple, int index){
 }
 int ListDrawNodes(Texture2D * texture){
 	
-	if(Head == NULL){
+	if(First == NULL){
 		return 1;
 	}
 	Node * current = First;
@@ -107,22 +116,25 @@ int ListDrawNodes(Texture2D * texture){
 
 	while(current->next != NULL){
 		//printf("Node: %d\n", current->data);
-		puts("Testi");	
+		//puts("Testi");	
 		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
 		current = current->next;
 	}
+	
+	DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
 	return 0;	
 
 }
 int ListPrintPositions(){
 	int index = 0;
-	if(Head==NULL){
+	if(First==NULL){
 		return 1;
 	}
 	Node * current = First;
 	if(current->next==NULL){	
 		printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
-		index++;
+		return 0;
+		//index++;
 	}	
 	while(current->next != NULL){
 		printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
@@ -130,9 +142,23 @@ int ListPrintPositions(){
 		index++;
 	}
 	
-	printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
+	//printf("Position X: %f, Position Y: %f, Index: %d \n", current->data.position.x, current->data.position.y, index);
 	return 0;
 }
+
+Apple * ListGetNode(int index){
+	Node * current = First;
+	for(int i = 0; i < index; i++){
+		if(current->next != NULL){
+			current = current->next;
+		}else{
+			Apple * ptr = NULL;
+			return ptr;	//Index out of range
+		}
+	}
+	return &current->data;
+}
+
 int ListGetHead(Node* node){
 	if(Head==NULL){
 		return 1;
