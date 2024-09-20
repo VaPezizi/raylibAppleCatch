@@ -125,6 +125,24 @@ int ListDrawNodes(Texture2D * texture){
 	return 0;	
 
 }
+int ListMoveApples(float DeltaTime, float AppleSpeed){
+	if(First == NULL)return 1;
+	Node * current = First;
+
+	if(current->next ==NULL){
+		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+		return 0;
+	}
+	while(current->next != NULL){
+		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+		current = current->next;
+	}
+
+	current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
+	return 0;
+
+}
+
 int ListPrintPositions(){
 	int index = 0;
 	if(First==NULL){

@@ -8,7 +8,7 @@
 const int width = 800;
 const int height  = 600;
 const Vector2 BASKETSTART = {height/2, width/2};
-const int BASKETMAXSPEED = 5;
+const int BASKETMAXSPEED = 300;
 
 
 Apple createApple(){
@@ -27,7 +27,8 @@ int main(){
 	
 	InitWindow( width, height, "Apple catch");	
 	SetTargetFPS( 60 );
-	
+
+	float appleSpeed = 20;	
 	double spawnSpeed = 1.5;
 	time_t spawnTime = time(NULL);
 
@@ -85,8 +86,8 @@ int main(){
 			ListAddNode(createApple());
 		}*/	
 		//Basket Movements
-		if(IsKeyDown(KEY_LEFT) && mainBasket.position.x > 0){mainBasket.position.x = mainBasket.position.x - BASKETMAXSPEED;}
-		else if(IsKeyDown(KEY_RIGHT) && mainBasket.position.x < width - 40){mainBasket.position.x = mainBasket.position.x + BASKETMAXSPEED;}
+		if(IsKeyDown(KEY_LEFT) && mainBasket.position.x > 0){mainBasket.position.x = mainBasket.position.x - BASKETMAXSPEED * GetFrameTime();}
+		else if(IsKeyDown(KEY_RIGHT) && mainBasket.position.x < width - 40){mainBasket.position.x = mainBasket.position.x + BASKETMAXSPEED * GetFrameTime();}
 
 
 		ListDrawNodes(&appleTexture);
@@ -95,7 +96,8 @@ int main(){
 
 		//printf("%d \n", ListDrawNodes(&appleTexture));
 
-		
+		appleSpeed = appleSpeed + 0.1;
+		ListMoveApples(GetFrameTime(), appleSpeed);		
 
 		EndDrawing();
 	}
