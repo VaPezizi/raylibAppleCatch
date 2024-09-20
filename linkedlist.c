@@ -128,7 +128,7 @@ int ListCpNode(Apple* apple, int index){
 
 }*/
 
-int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture){
+int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Basket * basket){
 
 	int index = 0;	
 	if(First == NULL){
@@ -136,10 +136,29 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture){
 	}
 	Node * current = First;
 
+	Rectangle rect = {
+		basket->position.x,
+		basket->position.y,
+		20,
+		20
+	};
+
 	if(current->next == NULL){
 		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE); //Drawing apple
 		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;	//Moving apple
-		if(current->data.position.y >= height)ListRemoveNode(index);	//Checking if apple is too low
+		
+		Rectangle appleRect = {
+			current->data.position.x,
+			current->data.position.y,
+			20,
+			20
+		};
+
+		if(CheckCollisionRecs(rect, appleRect)){
+			ListRemoveNode(index);
+		}
+
+		else if(current->data.position.y >= height)ListRemoveNode(index);	//Checking if apple is too low
 		return 0;
 	}
 
@@ -148,9 +167,19 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture){
 		//puts("Testi");	
 		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);	//Drawing		
 		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;	//Moving
+			
+		Rectangle appleRect = {
+			current->data.position.x,
+			current->data.position.y,
+			20,
+			20
+		};
+
+		if(CheckCollisionRecs(rect, appleRect)){
+			ListRemoveNode(index);
+		}
 		
-		
-		if(current->data.position.y >= height){
+		else if(current->data.position.y >= height){
 			ListRemoveNode(index);
 		}
 		index++;
