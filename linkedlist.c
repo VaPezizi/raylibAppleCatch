@@ -6,7 +6,7 @@
 Node * Head = NULL;
 Node * First = NULL;
 
-int ListAddNode(Apple data){
+int ListAppendNode(Apple data){
 	Node * current = First;
 	if(Head == NULL){
 		First = (Node*)malloc(sizeof(Node));
@@ -16,7 +16,7 @@ int ListAddNode(Apple data){
 		//printf("Testi\n");
 		return 0;
 	}
-	else{
+	else{/*
 		while(1){
 			if(current->next==NULL){
 				Node* added = (Node*)malloc(sizeof(Node));
@@ -27,10 +27,16 @@ int ListAddNode(Apple data){
 			}else{
 				current = current->next;
 			}
-		}
-		
-		
+		}*/
+		//I'm too drunk to understand why this doesn't work
+		//Edit: nvm figured it out and fixed
+		Node * added = (Node*) malloc(sizeof(Node));
+		added->data = data;
+		added->next = NULL;
+		Head->next = added;
+		Head = added;
 	}
+	puts("Succesfully added apple!");
 	return 0;	
 }
 int ListRemoveNode(int index){
@@ -139,8 +145,8 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 	Rectangle rect = {
 		basket->position.x,
 		basket->position.y,
-		20,
-		20
+		50,
+		50
 	};
 
 	if(current->next == NULL){
@@ -171,8 +177,8 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		Rectangle appleRect = {
 			current->data.position.x,
 			current->data.position.y,
-			20,
-			20
+			50,
+			50
 		};
 
 		if(CheckCollisionRecs(rect, appleRect)){

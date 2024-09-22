@@ -6,12 +6,17 @@
 #include "linkedlist.h"
 
 const Vector2 BASKETSTART = {height/2, width/2};
-const int BASKETMAXSPEED = 300;
+const int BASKETMAXSPEED = 600;
 
 
 Apple createApple(){
 	srand(time(NULL));
 	float rand_num = (float)rand()/(float)(RAND_MAX/width); 	
+//	Apple * apple = malloc(sizeof(Apple));
+//	apple->size = 20;
+//	apple->position.x = rand_num;
+//	apple->position.y = 100;
+	
 	Apple apple = {	
 		20,
 		(Vector2) {rand_num, 100},
@@ -38,7 +43,7 @@ int main(){
 
 	};
 	
-	ListAddNode(createApple());
+	ListAppendNode(createApple());
 	//ListRemoveNode(1);
 
 	Texture2D basketTexture = LoadTexture("basket.png");
@@ -53,8 +58,8 @@ int main(){
 			
 		if(difftime(time(NULL), spawnTime) > spawnSpeed){
 			spawnTime = time(NULL);
-			spawnSpeed = spawnSpeed - 0.05;
-			ListAddNode(createApple());
+			spawnSpeed = spawnSpeed * 0.95;
+			ListAppendNode(createApple());
 		}
 
 		//Piirto koordinaatit X, Y
