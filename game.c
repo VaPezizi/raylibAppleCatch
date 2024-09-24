@@ -43,7 +43,7 @@ int main(){
 
 	};
 	
-	ListAppendNode(createApple());
+//	ListAppendNode(createApple());
 	//ListRemoveNode(1);
 
 	Texture2D basketTexture = LoadTexture("basket.png");

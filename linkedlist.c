@@ -7,12 +7,14 @@ Node * Head = NULL;
 Node * First = NULL;
 
 int ListAppendNode(Apple data){
-	Node * current = First;
+//	Node * current = First;
 	if(Head == NULL){
 		First = (Node*)malloc(sizeof(Node));
-		First->data = data;
-		First->next = NULL;
-		Head = First;
+		if(First){
+			First->data = data;
+			First->next = NULL;
+			Head = First;
+		}else puts("VIRHE");
 		//printf("Testi\n");
 		return 0;
 	}
@@ -31,10 +33,14 @@ int ListAppendNode(Apple data){
 		//I'm too drunk to understand why this doesn't work
 		//Edit: nvm figured it out and fixed
 		Node * added = (Node*) malloc(sizeof(Node));
-		added->data = data;
-		added->next = NULL;
-		Head->next = added;
-		Head = added;
+		if(added){
+			added->data = data;
+			added->next = NULL;
+			Head->next = added;
+			Head = added;
+		}else{
+			puts("VIRHE");
+		}
 	}
 	puts("Succesfully added apple!");
 	return 0;	
@@ -48,7 +54,9 @@ int ListRemoveNode(int index){
 
 	if(index == 0){
 		First = current->next;
+		if(Head == current)Head = current->next;
 		free(current);
+		//Head = NULL;
 		puts("Succesfully destroyed Apple!");
 		return 0;
 	}
@@ -58,17 +66,22 @@ int ListRemoveNode(int index){
 			printf("Index out of range\n");
 			return 1;
 		}
-		if(current->next == Head){
+		/*if(current->next == Head){
 			Head = current;
-		}
-		puts("Testi");		
+			
+		}*/
+		//puts("Testi");		
 
 		current = current->next;
 	}
 	
 		
 	//puts("Moro");
-	//if(current->next == NULL)return 1;
+	if(current->next == Head){		
+		free(current->next);
+		Head = current;
+
+	}
 	puts("Succesfully destroyed Apple!");
 	Node* temp = current->next;
 	current->next = temp->next;
@@ -138,6 +151,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 
 	int index = 0;	
 	if(First == NULL){
+		puts("FIRST=NULL!!");
 		return 1;
 	}
 	Node * current = First;
@@ -159,7 +173,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 			20,
 			20
 		};
-
+		//printf("Apple x:%f, y:%f\n", current->data.position.x, current->data.position.y);
 		if(CheckCollisionRecs(rect, appleRect)){
 			ListRemoveNode(index);
 		}
@@ -174,6 +188,8 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);	//Drawing		
 		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;	//Moving
 			
+		//printf("Apple x:%f, y:%f\n", current->data.position.x, current->data.position.y);
+		
 		Rectangle appleRect = {
 			current->data.position.x,
 			current->data.position.y,
@@ -196,29 +212,11 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 	}
 	
 	current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
-
+	
+	//printf("Apple x:%f, y:%f\n", current->data.position.x, current->data.position.y);
 	DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);		
 	return 0;	
 }
-/*
-int ListMoveApples(float DeltaTime, float AppleSpeed){
-	if(First == NULL)return 1;
-	Node * current = First;
-
-	if(current->next ==NULL){
-		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
-		return 0;
-	}
-	while(current->next != NULL){
-		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
-		current = current->next;
-	}
-
-	current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;
-	return 0;
-
-}
-*/
 int ListPrintPositions(){
 	int index = 0;
 	if(First==NULL){
