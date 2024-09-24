@@ -155,6 +155,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		return 1;
 	}
 	Node * current = First;
+	printf("currentX: %f\n", current->data.position.x);
 
 	Rectangle rect = {
 		basket->position.x,
@@ -176,6 +177,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		//printf("Apple x:%f, y:%f\n", current->data.position.x, current->data.position.y);
 		if(CheckCollisionRecs(rect, appleRect)){
 			ListRemoveNode(index);
+			return 0;
 		}
 
 		else if(current->data.position.y >= height)ListRemoveNode(index);	//Checking if apple is too low
@@ -198,16 +200,21 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		};
 
 		if(CheckCollisionRecs(rect, appleRect)){
+			current = current->next;
 			ListRemoveNode(index);
+
 		}
 		
 		else if(current->data.position.y >= height){
+			current = current->next;
 			ListRemoveNode(index);
-		}
-		index++;
-		
-		current = current->next;	
+		}else{
 
+		
+			current = current->next;	
+		}
+
+		index++;
 
 	}
 	
