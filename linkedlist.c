@@ -147,12 +147,12 @@ int ListCpNode(Apple* apple, int index){
 
 }*/
 
-int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Basket * basket){
+int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Basket * basket, int * score){
 
 	int index = 0;	
 	if(First == NULL){
 		puts("FIRST=NULL!!");
-		return 1;
+		return 0;
 	}
 	Node * current = First;
 	printf("currentX: %f\n", current->data.position.x);
@@ -177,6 +177,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		//printf("Apple x:%f, y:%f\n", current->data.position.x, current->data.position.y);
 		if(CheckCollisionRecs(rect, appleRect)){
 			ListRemoveNode(index);
+			*score = *score + 1;
 			return 0;
 		}
 
@@ -202,7 +203,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		if(CheckCollisionRecs(rect, appleRect)){
 			current = current->next;
 			ListRemoveNode(index);
-
+			*score = *score + 1;
 		}
 		
 		else if(current->data.position.y >= height){

@@ -3,7 +3,7 @@
 
 Apple * ListGetNode(int index);
 
-int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Basket * basket);
+int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Basket * basket, int * score);
 //int ListMoveApples(float DeltaTime, float AppleSpeed);
 int ListGetHead(Node* node);
 //int ListDrawNodes(Texture2D * texture);

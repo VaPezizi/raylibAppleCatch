@@ -8,7 +8,6 @@
 const Vector2 BASKETSTART = {height/2, width/2};
 const int BASKETMAXSPEED = 600;
 
-
 Apple createApple(){
 	srand(time(NULL));
 	float rand_num = (float)rand()/(float)(RAND_MAX/width); 	
@@ -36,6 +35,8 @@ int main(){
 	double spawnSpeed = 1.5;
 	time_t spawnTime = time(NULL);
 
+	int * score = calloc(1, sizeof(int));
+
 	Basket mainBasket = {
 		20,			//Size
 		BASKETSTART,	//Position
@@ -55,6 +56,9 @@ int main(){
 		BeginDrawing();
 		ClearBackground(LIGHTGRAY);
 		
+		char scorestr[20];
+		sprintf(scorestr, "%d", *score);
+		DrawText(scorestr, 50, 50, 50, BLACK);	
 			
 		if(difftime(time(NULL), spawnTime) > spawnSpeed){
 			spawnTime = time(NULL);
@@ -72,7 +76,7 @@ int main(){
 		else if(IsKeyDown(KEY_RIGHT) && mainBasket.position.x < width - 40){mainBasket.position.x = mainBasket.position.x + BASKETMAXSPEED * GetFrameTime();}
 
 
-		ListUpdateApples(GetFrameTime(), appleSpeed, &appleTexture, &mainBasket);
+		ListUpdateApples(GetFrameTime(), appleSpeed, &appleTexture, &mainBasket, score);
 		//ListDrawNodes(&appleTexture);
 		DrawTextureEx(basketTexture, (Vector2) {mainBasket.position.x, mainBasket.position.y} , 0, (mainBasket.size * 0.002), WHITE);		
 		//ListPrintPositions();		
@@ -84,6 +88,8 @@ int main(){
 
 		EndDrawing();
 	}
+
+	free(score);
 	UnloadTexture(basketTexture);
 	
 	UnloadTexture(appleTexture);
