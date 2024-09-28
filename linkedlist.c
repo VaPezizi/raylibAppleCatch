@@ -151,7 +151,7 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 
 	int index = 0;	
 	if(First == NULL){
-		puts("FIRST=NULL!!");
+//		puts("FIRST=NULL!!");
 		return 0;
 	}
 	Node * current = First;
@@ -180,15 +180,16 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 			*score = *score + 1;
 			return 0;
 		}
+			
 
-		else if(current->data.position.y >= height)ListRemoveNode(index);	//Checking if apple is too low
+		else if(current->data.position.y >= height)return 1;	//Checking if apple is too low
 		return 0;
 	}
 
 	while(current->next != NULL){
 		//printf("Node: %d\n", current->data);
 		//puts("Testi");	
-		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE);	//Drawing		
+		DrawTextureEx(* texture, (Vector2) {current->data.position.x, current->data.position.y} , 0, current->data.size * 0.007, WHITE); //Drawing
 		current->data.position.y = current->data.position.y + AppleSpeed * DeltaTime;	//Moving
 			
 		//printf("Apple x:%f, y:%f\n", current->data.position.x, current->data.position.y);
@@ -207,8 +208,10 @@ int ListUpdateApples(float DeltaTime, float AppleSpeed, Texture2D * texture, Bas
 		}
 		
 		else if(current->data.position.y >= height){
+			
 			current = current->next;
 			ListRemoveNode(index);
+			return 1;
 		}else{
 
 		
